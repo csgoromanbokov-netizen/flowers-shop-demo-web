@@ -3,23 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STREET FLOWERS | CUSTOM</title>
+    <title>STREET FLOWERS | COLLECTION</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        body { background-color: #000; color: #fff; font-family: 'Helvetica', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; text-transform: uppercase; }
-        h1 { font-size: 3rem; letter-spacing: 12px; border-bottom: 2px solid #fff; padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
-        .sub { letter-spacing: 4px; font-size: 0.8rem; color: #666; margin-bottom: 40px; }
-        .links { display: flex; flex-direction: column; gap: 15px; }
-        .btn { display: inline-block; width: 220px; padding: 15px; border: 1px solid #fff; color: #fff; text-decoration: none; text-align: center; transition: 0.3s; font-weight: bold; }
-        .btn:hover { background: #fff; color: #000; cursor: crosshair; }
+        body { background-color: #050505; color: #fff; font-family: 'Helvetica', sans-serif; margin: 0; overflow-x: hidden; }
+        .container { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        
+        /* Главное фото */
+        .product-img { width: 300px; filter: drop-shadow(0 0 20px rgba(255,255,255,0.1)); opacity: 0; transform: scale(0.8); margin-bottom: 20px; }
+        
+        .hero-title { font-size: 8vw; font-weight: 900; letter-spacing: -2px; margin: 0; line-height: 0.8; opacity: 0; }
+        .sub-text { color: #888; letter-spacing: 5px; text-transform: uppercase; font-size: 12px; margin-top: 20px; opacity: 0; }
+        
+        .links { margin-top: 40px; display: flex; gap: 20px; opacity: 0; }
+        .btn { padding: 15px 30px; border: 1px solid #fff; color: #fff; text-decoration: none; font-size: 10px; font-weight: bold; transition: 0.3s; }
+        .btn:hover { background: #fff; color: #000; box-shadow: 0 0 30px rgba(255,255,255,0.3); }
     </style>
 </head>
 <body>
-    <h1>STREET FLOWERS</h1>
-    <div class="sub">Handmade Custom. Volgograd. 2026.</div>
-    
-    <div class="links">
-        <a href="https://t.me/flowers193_bot" class="btn">Shop Bot ⚡️</a>
-        <a href="#" class="btn">Giveaway 🎁</a>
+
+    <div class="container">
+        <img src="bag.png" alt="Custom Bag" class="product-img" id="main-photo">
+        
+        <h1 class="hero-title">STREET<br>FLOWERS</h1>
+        <p class="sub-text">Handmade Custom Collection 2026</p>
+        
+        <div class="links">
+            <a href="https://t.me/flowers193_bot" class="btn">КУПИТЬ В BOT</a>
+            <a href="#" class="btn">УЧАСТВОВАТЬ В РОЗЫГРЫШЕ</a>
+        </div>
     </div>
+
+    <script>
+        window.onload = () => {
+            let tl = gsap.timeline();
+            // Плавное появление фото и заголовка
+            tl.to(".product-img", { opacity: 1, scale: 1, duration: 1.2, ease: "back.out(1.7)" })
+              .to(".hero-title", { opacity: 1, y: -20, duration: 1, ease: "power4.out" }, "-=0.5")
+              .to(".sub-text", { opacity: 1, duration: 1 }, "-=0.8")
+              .to(".links", { opacity: 1, y: -10, duration: 0.8 }, "-=0.5");
+
+            // Эффект покачивания фото (как на дорогих сайтах)
+            gsap.to("#main-photo", {
+                y: 15,
+                repeat: -1,
+                yoyo: true,
+                duration: 2,
+                ease: "sine.inOut"
+            });
+        };
+    </script>
 </body>
 </html>
