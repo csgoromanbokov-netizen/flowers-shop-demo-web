@@ -136,9 +136,7 @@
             let rotationTween;
 
             flower.addEventListener('mouseenter', () => {
-                // Убиваем любую текущую анимацию, чтобы начать заново
                 gsap.killTweensOf(flower);
-                
                 // Запускаем бесконечное вращение
                 rotationTween = gsap.to(flower, {
                     rotation: "+=360",
@@ -149,14 +147,39 @@
             });
 
             flower.addEventListener('mouseleave', () => {
-                // Останавливаем бесконечный цикл
                 if (rotationTween) rotationTween.kill();
                 
-                // Плавный возврат в исходное положение (0 градусов)
-                gsap.to(flower, {
-                    rotation: 0, 
-                    duration: 1.5,
-                    ease: "back.out(1.7)" // Добавит микро-эффект пружины в конце
+                const currentRot = gsap.getProperty(flower, "rotation");
+                // Находим следующую точку 0° (кратно 360), двигаясь только вперед
+                const finalPos = Math.ceil(currentRot / 360) * 360;
+
+                // Создаем эффект маятника (картина на гвоздю)
+                let pendulum = gsap.timeline();
+                
+                pendulum.to(flower, {
+                    rotation: finalPos, 
+                    duration: 1.2, 
+                    ease: "power2.out" // Сначала плавно долетаем до цели по инерции
+                })
+                .to(flower, {
+                    rotation: finalPos + 15, // Пролетаем чуть дальше вперед
+                    duration: 0.4,
+                    ease: "power1.inOut"
+                })
+                .to(flower, {
+                    rotation: finalPos - 10, // Качнулись назад
+                    duration: 0.5,
+                    ease: "power1.inOut"
+                })
+                .to(flower, {
+                    rotation: finalPos + 5, // Снова чуть вперед
+                    duration: 0.6,
+                    ease: "power1.inOut"
+                })
+                .to(flower, {
+                    rotation: finalPos, // Успокоились в центре
+                    duration: 0.8,
+                    ease: "back.out(2)"
                 });
             });
         };
