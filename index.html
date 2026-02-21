@@ -8,6 +8,7 @@
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Helvetica', sans-serif; background-color: #000; }
 
+        /* Фон сайта с твоим новым logo193.jpg */
         .full-bg {
             position: fixed;
             top: 0; left: 0;
@@ -34,29 +35,22 @@
             justify-content: center;
             font-size: 9vw;
             font-weight: 900;
-            letter-spacing: -3px;
+            letter-spacing: -2px;
             text-transform: uppercase;
             margin: 0;
             opacity: 0;
         }
 
-        /* МАКСИМАЛЬНЫЙ РАЗМЕР ЦВЕТКА */
+        /* Цветок вместо буквы О */
         .flower-o {
-            width: 15vw;  /* Было 12, теперь 15 — это максимум для гармонии */
-            height: 15vw;
-            min-width: 100px; /* Чтобы на мобилках не исчезал */
-            min-height: 100px;
-            margin: 0 -1.5vw; /* Сильнее прижимаем буквы, так как лого стал больше */
+            width: 8.5vw; 
+            height: 8.5vw;
+            margin: 0 0.5vw;
             background: url('logo193.jpg');
-            background-size: contain;
-            background-repeat: no-repeat;
+            background-size: cover;
             background-position: center;
+            border-radius: 50%; /* Делаем картинку круглой, чтобы убрать углы квадрата */
             display: inline-block;
-            vertical-align: middle; 
-            position: relative;
-            top: -0.2vw; 
-            border-radius: 50%;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); /* Добавил легкое свечение */
         }
 
         .sub-text {
@@ -64,11 +58,11 @@
             letter-spacing: 5px;
             text-transform: uppercase;
             font-size: 1.2vw;
-            margin-top: 5px; /* Уменьшил отступ, так как логотип большой */
+            margin-top: 20px;
             opacity: 0;
         }
 
-        .links { margin-top: 30px; display: flex; gap: 20px; opacity: 0; }
+        .links { margin-top: 40px; display: flex; gap: 20px; opacity: 0; }
 
         .btn {
             padding: 15px 35px;
@@ -83,7 +77,11 @@
             backdrop-filter: blur(10px);
         }
 
-        .btn:hover { background: #fff; color: #000; transform: scale(1.1); }
+        .btn:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -106,14 +104,15 @@
     <script>
         window.onload = () => {
             let tl = gsap.timeline();
+            
             tl.to(".hero-title", { opacity: 1, duration: 1.5, ease: "power4.out" })
               .to(".sub-text", { opacity: 1, duration: 1 }, "-=1")
               .to(".links", { opacity: 1, y: -10, duration: 0.8 }, "-=0.5");
             
-            // Плавное вращение
+            // Крутим нашу "О-цветок"
             gsap.to(".flower-o", {
                 rotation: 360,
-                duration: 12,
+                duration: 10,
                 repeat: -1,
                 ease: "none"
             });
